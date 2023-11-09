@@ -1,8 +1,7 @@
 # Exon_Number
-##R script to determine the number of exons per transcript
 
 #### Script for generating a plot of number of exons per transcript for multiple genome comparisons
-What’s the distinction between genes and transcripts? A gene is generally defined as a region in the genome which is transcribed. However, the specific combination of exons is referred to as a transcript. The different transcripts that a gene produces can be referred to as isoforms of the gene. To give an example, suppose we have a gene with exons E1, E2, E3, E4. And there are two transcripts, or isoforms, of this gene: one which includes E3, and one which excludes E3. 
+This script was generated for recovering exons from genomes of three different species of limpets. Reminder: What’s the distinction between genes and transcripts? A gene is generally defined as a region in the genome which is transcribed. However, the specific combination of exons is referred to as a transcript. The different transcripts that a gene produces can be referred to as isoforms of the gene. To give an example, suppose we have a gene with exons E1, E2, E3, E4. And there are two transcripts, or isoforms, of this gene: one which includes E3, and one which excludes E3. 
 
 ```source("asynt.R")```
 
@@ -63,12 +62,13 @@ read in gtf file with pkg GenomicFeatures
 
 ```columns(S.scurra.p)```
 
-#create a table of gene and transcript IDs
-txdf <- AnnotationDbi::select(S.scurra.p,
+create a table of gene and transcript IDs
+
+```txdf <- AnnotationDbi::select(S.scurra.p,
                               keys=keys(S.scurra.p, "GENEID"),
                               columns=c("CDSNAME", "GENEID", "TXID", "TXCHROM","TXNAME","EXONID", "EXONNAME"),
-                              keytype="GENEID")
-head(txdf, 20)
+                              keytype="GENEID")```
+```head(txdf, 20)```
 
 #collect exons by transcript id
 exons.list.per.transcript <- exonsBy(S.scurra.p, by="tx", use.names=TRUE)
