@@ -1,7 +1,7 @@
 # Exon_Number
 
 #### Script for generating a plot of number of exons per transcript for multiple genome comparisons
-This script was generated for recovering exons from genomes of three different species of limpets. Reminder: What’s the distinction between genes and transcripts? A gene is generally defined as a region in the genome which is transcribed. However, the specific combination of exons is referred to as a transcript. The different transcripts that a gene produces can be referred to as isoforms of the gene. To give an example, suppose we have a gene with exons E1, E2, E3, E4. And there are two transcripts, or isoforms, of this gene: one which includes E3, and one which excludes E3. 
+This script was generated for recovering exons from genomes of three different species of limpets. Parts of this script were retrieved from various parts of the internet. Reminder: What’s the distinction between genes and transcripts? A gene is generally defined as a region in the genome which is transcribed. However, the specific combination of exons is referred to as a transcript. The different transcripts that a gene produces can be referred to as isoforms of the gene. To give an example, suppose we have a gene with exons E1, E2, E3, E4. And there are two transcripts, or isoforms, of this gene: one which includes E3, and one which excludes E3. 
 
 ```source("asynt.R")```
 
@@ -54,7 +54,7 @@ This script was generated for recovering exons from genomes of three different s
 ### Scurria scurra 
 read in gtf file with pkg GenomicFeatures
 
-```Scurra_txdb_parsed <- makeTxDbFromGFF(file="/Users/emily/Dropbox/School/Thesis/Genomics-Ch1/01-SG_genome/assembly_annotation_v1/Scurria_scurra_annotation_v1_ch10_top10.gtf", format="gtf")```
+```Scurra_txdb_parsed <- makeTxDbFromGFF(file="{PWD}/Scurria_scurra_annotation_v1_ch10_top10.gtf", format="gtf")```
 
 ```saveDb(Scurra_txdb_parsed, "Scurria_scurra_parsed")```
 
@@ -68,14 +68,19 @@ create a table of gene and transcript IDs
                               keys=keys(S.scurra.p, "GENEID"),
                               columns=c("CDSNAME", "GENEID", "TXID", "TXCHROM","TXNAME","EXONID", "EXONNAME"),
                               keytype="GENEID")```
+
 ```head(txdf, 20)```
 
-#collect exons by transcript id
-exons.list.per.transcript <- exonsBy(S.scurra.p, by="tx", use.names=TRUE)
-mcols(exons.list.per.transcript) #get information about data collected
-head(exons.list.per.transcript)
+collect exons by transcript id
 
-#coerce to dataframe
+```exons.list.per.transcript <- exonsBy(S.scurra.p, by="tx", use.names=TRUE)```
+
+```mcols(exons.list.per.transcript) #get information about data collected```
+
+```head(exons.list.per.transcript)```
+
+coerce to dataframe
+
 exons.list.per.transcript.df.ss.all <- as.data.frame(exons.list.per.transcript)
 head(exons.list.per.transcript.df.ss.all, n=50)
 colnames(exons.list.per.transcript.df.ss.all) <- c("GENEID", "TXID","CHRMID","start","end","width","strand","exon_id","exon_name", "exon_rank")
