@@ -64,10 +64,10 @@ read in gtf file with pkg GenomicFeatures
 
 create a table of gene and transcript IDs
 
-```txdf <- AnnotationDbi::select(S.scurra.p,
-                              keys=keys(S.scurra.p, "GENEID"),
-                              columns=c("CDSNAME", "GENEID", "TXID", "TXCHROM","TXNAME","EXONID", "EXONNAME"),
-                              keytype="GENEID")```
+```txdf <- AnnotationDbi::select(S.scurra.p,```
+                              ```keys=keys(S.scurra.p, "GENEID"),```
+                              ```columns=c("CDSNAME", "GENEID", "TXID", "TXCHROM","TXNAME","EXONID", "EXONNAME"),```
+                              ```keytype="GENEID")```
 
 ```head(txdf, 20)```
 
