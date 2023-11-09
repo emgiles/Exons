@@ -1,46 +1,67 @@
 # Exon_Number
-R script to determine the number of exons per transcript
+##R script to determine the number of exons per transcript
 
 #### Script for generating a plot of number of exons per transcript for multiple genome comparisons
 What’s the distinction between genes and transcripts? A gene is generally defined as a region in the genome which is transcribed. However, the specific combination of exons is referred to as a transcript. The different transcripts that a gene produces can be referred to as isoforms of the gene. To give an example, suppose we have a gene with exons E1, E2, E3, E4. And there are two transcripts, or isoforms, of this gene: one which includes E3, and one which excludes E3. 
 
-```#source("asynt.R")```
+```source("asynt.R")```
 
-```#install.packages("rstatix")```
+```install.packages("rstatix")```
 
-```#install.packages("tidyverse")```
+```install.packages("tidyverse")```
 
-```#install.packages("multcomp")```
+```install.packages("multcomp")```
 
-```#install.packages("dgof")```
+```install.packages("dgof")```
 
-```#install.packages("Matching")```
+```install.packages("Matching")```
 
 ```library(AnnotationHub)```
-```library(AnnotationDbi)```
-```library(intervals)```
-```library(ggplot2)```
-```library(dplyr)```
-library(data.table)
-library(GenomicFeatures)
-library(GenomicRanges)
-library(rtracklayer)
-library(devtools)
-library(bedr)
-library(scales)
-library(splitstackshape)
-library(rstatix)
-library(tidyverse)
-library(multcomp)
-library(dgof)
-library(Matching)
 
-############ Scurria scurra ################
-#read in gtf file with pkg GenomicFeatures
-Scurra_txdb_parsed <- makeTxDbFromGFF(file="/Users/emily/Dropbox/School/Thesis/Genomics-Ch1/01-SG_genome/assembly_annotation_v1/Scurria_scurra_annotation_v1_ch10_top10.gtf", format="gtf")
-saveDb(Scurra_txdb_parsed, "Scurria_scurra_parsed")
-S.scurra.p <- loadDb("Scurria_scurra_parsed")
-columns(S.scurra.p)
+```library(AnnotationDbi)```
+
+```library(intervals)```
+
+```library(ggplot2)```
+
+```library(dplyr)```
+
+```library(data.table)```
+
+```library(GenomicFeatures)```
+
+```library(GenomicRanges)```
+
+```library(rtracklayer)```
+
+```library(devtools)```
+
+```library(bedr)```
+
+```library(scales)```
+
+```library(splitstackshape)```
+
+```library(rstatix)```
+
+```library(tidyverse)```
+
+```library(multcomp)```
+
+```library(dgof)```
+
+```library(Matching)```
+
+### Scurria scurra 
+read in gtf file with pkg GenomicFeatures
+
+```Scurra_txdb_parsed <- makeTxDbFromGFF(file="/Users/emily/Dropbox/School/Thesis/Genomics-Ch1/01-SG_genome/assembly_annotation_v1/Scurria_scurra_annotation_v1_ch10_top10.gtf", format="gtf")```
+
+```saveDb(Scurra_txdb_parsed, "Scurria_scurra_parsed")```
+
+```S.scurra.p <- loadDb("Scurria_scurra_parsed")```
+
+```columns(S.scurra.p)```
 
 #create a table of gene and transcript IDs
 txdf <- AnnotationDbi::select(S.scurra.p,
