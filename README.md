@@ -64,10 +64,7 @@ read in gtf file with pkg GenomicFeatures
 
 create a table of gene and transcript IDs
 
-```txdf <- AnnotationDbi::select(S.scurra.p,```
-                              ```keys=keys(S.scurra.p, "GENEID"),```
-                              ```columns=c("CDSNAME", "GENEID", "TXID", "TXCHROM","TXNAME","EXONID", "EXONNAME"),```
-                              ```keytype="GENEID")```
+```txdf <- AnnotationDbi::select(S.scurra.p,keys=keys(S.scurra.p, "GENEID"), columns=c("CDSNAME", "GENEID", "TXID", "TXCHROM","TXNAME","EXONID", "EXONNAME"), keytype="GENEID")```
 
 ```head(txdf, 20)```
 
@@ -81,25 +78,37 @@ collect exons by transcript id
 
 coerce to dataframe
 
-exons.list.per.transcript.df.ss.all <- as.data.frame(exons.list.per.transcript)
-head(exons.list.per.transcript.df.ss.all, n=50)
-colnames(exons.list.per.transcript.df.ss.all) <- c("GENEID", "TXID","CHRMID","start","end","width","strand","exon_id","exon_name", "exon_rank")
-head(exons.list.per.transcript.df.ss.all)
+```exons.list.per.transcript.df.ss.all <- as.data.frame(exons.list.per.transcript)```
 
-#determine number of exons per transcript
-mcols(exons.list.per.transcript)$num_exons <- lengths(exons.list.per.transcript)
-exons_per_transcript.ss <- as.data.frame(mcols(exons.list.per.transcript))
-exons_per_transcript.ss$TXID <- row.names(exons_per_transcript.ss)
-head(exons_per_transcript.ss)
-class(exons_per_transcript.ss)
+```head(exons.list.per.transcript.df.ss.all, n=50)```
 
-#merge based on TXID
-merged.ss <- dplyr::inner_join(exons_per_transcript.ss, exons.list.per.transcript.df.ss.all, by = "TXID")
-head(merged.ss)
+```colnames(exons.list.per.transcript.df.ss.all) <- c("GENEID", "TXID","CHRMID","start","end","width","strand","exon_id","exon_name", "exon_rank")```
 
-#subset only the columns that are needed
-merged.ss.reduced <- subset(merged.ss, select=c(num_exons, TXID, GENEID, CHRMID))
-head(merged.ss.reduced)
+```head(exons.list.per.transcript.df.ss.all)```
+
+determine number of exons per transcript
+
+```mcols(exons.list.per.transcript)$num_exons <- lengths(exons.list.per.transcript)```
+
+```exons_per_transcript.ss <- as.data.frame(mcols(exons.list.per.transcript))```
+
+```exons_per_transcript.ss$TXID <- row.names(exons_per_transcript.ss)```
+
+```head(exons_per_transcript.ss)```
+
+```class(exons_per_transcript.ss)```
+
+merge based on TXID
+
+```merged.ss <- dplyr::inner_join(exons_per_transcript.ss, exons.list.per.transcript.df.ss.all, by = "TXID")```
+
+```head(merged.ss)```
+
+subset only the columns that are needed
+
+```merged.ss.reduced <- subset(merged.ss, select=c(num_exons, TXID, GENEID, CHRMID))```
+
+```head(merged.ss.reduced)```
 
 # get only distinct rows based on TXID
 merged.ss.final <- merged.ss.reduced %>% 
