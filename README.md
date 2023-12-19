@@ -186,7 +186,7 @@ subset only the columns that are needed
 get only distinct rows based on TXID
 
 ```merged.sv.final <- merged.sv.reduced %>% 
-  distinct(TXID, .keep_all = T)```
+  ```distinct(TXID, .keep_all = T)```
 
 ```head(merged.sv.final)```
 
